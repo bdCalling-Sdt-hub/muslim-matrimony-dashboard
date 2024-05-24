@@ -1,0 +1,31 @@
+.formContainer {
+    width: 495px;
+
+    margin: 0 auto;
+}
+
+.input {
+    height: 45px;
+    margin-top: 6px;
+}
+
+.otpInput {
+    text-align: center;
+    width: 70px;
+    height: 70px;
+    font-size: 20px;
+}
+
+.otpButton {
+    height: 45px;
+    font-weight: 400;
+    font-size: 18px;
+    background: black;
+    align-self: flex-end;
+    /* Assuming you meant to align it to the bottom */
+    margin-top: 20px;
+}
+
+.otpButton:hover {
+    background: black !important;
+}
