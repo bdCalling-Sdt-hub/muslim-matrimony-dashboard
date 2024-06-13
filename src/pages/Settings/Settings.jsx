@@ -11,11 +11,11 @@ const Settings = () => {
       title: "Change Password",
       link: "change-password",
     },
-    // {
-    //     key: "2",
-    //     title: "Subscription Package",
-    //     link: "subscription-package",
-    // },
+    {
+        key: "2",
+        title: "Blocked Users",
+        link: "blocked-users",
+    },
     // {
     //     key: "3",
     //     title: "Login Activity",

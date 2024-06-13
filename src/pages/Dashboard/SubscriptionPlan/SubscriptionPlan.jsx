@@ -6,7 +6,7 @@ import { useState } from 'react';
 import PlanModal from '../../../components/UI/PlanModal';
 
 const SubscriptionPlan = () => {
-
+    console.log('use --------------------------here -------------------------boss')
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {

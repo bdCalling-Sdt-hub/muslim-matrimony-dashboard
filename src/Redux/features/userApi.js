@@ -6,7 +6,7 @@ const userApi = baseApi.injectEndpoints({
     //Get all users
     allUsers: builder.query({
       query: (userFilterData) => ({
-        url: `users/user-list?page=${userFilterData.page}&limit=${userFilterData.limit}&role=${userFilterData.role}&gender=${userFilterData.gender}`,
+        url: `users/user-list?page=${userFilterData.page}&limit=${userFilterData.limit}&role=${userFilterData.role}&gender=${userFilterData.gender}&isBlocked=${userFilterData.isBlocked}`,
         method: "GET",
         headers: {
           "Authorization": `Bearer ${getLocalStorageItem("token")}`,
@@ -39,7 +39,20 @@ const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["allUsers"],
     }),
+    //update a new user
+    updateUser: builder.mutation({
+      query: (userData) => ({
+        url: `users/update/${userData._id}`,
+        method: "PUT",
+        data: userData,
+        headers:{
+          "Content-Type": "application/json", // "Content-Type": "application/json" or "multipart/form-data"
+          "Authorization": `Bearer ${getLocalStorageItem("token")}`,
+        }
+      }),
+      invalidatesTags: ["allUsers"],
+    }),
   }),
 });
 
-export const { useAllUsersQuery, useCreateUserMutation, useDeleteUserMutation } = userApi;
+export const { useAllUsersQuery, useCreateUserMutation, useDeleteUserMutation, useUpdateUserMutation } = userApi;

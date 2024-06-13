@@ -10,6 +10,7 @@ import Support from "../../../components/Settings/Support/Support";
 import FAQ from "../../../components/Settings/FAQ/FAQ";
 import TermsAndCondition from "../../../components/Settings/TermsCondition/TermsAndCondition";
 import ChangeImage from "../../../components/Settings/ChangeImage/ChangeImage";
+import BlockedUsers from "../../Dashboard/Users/BlockedUsers";
 // import SubscriptionPackage from "../../../../components/Settings/SubscriptionPackage/SubscriptionPackage";
 // import ChangePassword from "../../../components/Settings/ChangePassword/ChangePassword";
 // import LoginActivity from "../../../components/Settings/LoginActivity/LoginActivity";
@@ -69,6 +70,9 @@ const SettingPage = () => {
             {text === "support" && <Support />}
             {text === "faq" && <FAQ />}
             {text === "about us" && <AboutUs />}
+            {
+              text === "blocked users" && <BlockedUsers />
+            }
             {location.pathname === "/settings/verify-otp" && <VerifyOTP />}
             {location.pathname === "/settings/update-password" && (
               <UpdatePassword />

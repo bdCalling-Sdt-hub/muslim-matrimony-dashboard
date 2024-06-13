@@ -133,7 +133,7 @@ const Homepage = () => {
           >
             <Select onChange={handleScreenNameChange}>
               <Select.Option value="auth">Auth</Select.Option>
-              <Select.Option value="home">Home Page</Select.Option>
+              <Select.Option value="homepage">Home Page</Select.Option>
             </Select>
           </Form.Item>
 

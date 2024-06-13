@@ -15,7 +15,7 @@ import { useAllUsersQuery, useUpdateUserMutation } from "../../../Redux/features
 import Swal from "sweetalert2";
 
 const { Option } = Select;
-const FreeUsers = () => {
+const BlockedUsers = () => {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [gender, setGender] = useState("all");
@@ -24,7 +24,7 @@ const FreeUsers = () => {
     limit: size,
     role: "user",
     gender: gender,
-    isBlocked: false
+    isBlocked: true
   });
   const userData = allUsersData?.data?.attributes.userList;
   const pagination = allUsersData?.data?.attributes.pagination;
@@ -39,34 +39,36 @@ const FreeUsers = () => {
   const handleFilterChange = (values) => {
     console.log("🚀 ~ handleFilterChange ~ values:", values);
   };
+
   const [updateUser] = useUpdateUserMutation();
 
-  const handleBlock = async (id) => {
+  const handleUnblock = async (id) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you really want to block this person?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, block!'
+        title: 'Are you sure?',
+        text: "Do you really want to un-block this person?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, un-block!'
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await updateUser({ _id: id, isBlocked: true }).unwrap();
+          const res = await updateUser({ _id: id, isBlocked: false }).unwrap();
           console.log(res)
           if (res && res.statusCode === '200') {
             Swal.fire({
               title: 'Blocked!',
-              text: 'User has been blocked',
+              text: 'User has been un-blocked',
               icon: 'success'
             })
           }
         }
         catch (err) {
+          console.log(err)
           Swal.fire({
             title: 'Error!',
-            text: 'User has not been blocked',
+            text: 'Something went wrong',
             icon: 'error'
           })
         }
@@ -75,7 +77,7 @@ const FreeUsers = () => {
         console.log("User cancelled blocking");
       }
     });
-  };
+};
 
   const columns = [
     {
@@ -157,14 +159,14 @@ const FreeUsers = () => {
             >
               OK
             </Button>
-            <Button onClick={() => setGender("all")} size="small" style={{ width: "50%" }}>
+            <Button onClick={()=>setGender("all")} size="small" style={{ width: "50%" }}>
               Reset
             </Button>
           </div>
         </div>
       ),
       width: 120,
-    },
+    },    
     {
       title: "Date",
       dataIndex: "createdAt",
@@ -182,9 +184,9 @@ const FreeUsers = () => {
         <div className="flex justify-start items-center gap-2">
           <Button
             danger
-            onClick={() => handleBlock(record._id)}
+            onClick={() => handleUnblock(record._id)}
           >
-            Block
+            UBlock
           </Button>
         </div>
       ),
@@ -207,10 +209,7 @@ const FreeUsers = () => {
   return (
     <div className="p-5">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl">User list</h1>
-        <Link to={"/users/create-user"} className="">
-          <Button type="default"> + Add user</Button>
-        </Link>
+        <h1 className="text-2xl">Blocked Users list</h1>
       </div>
 
       {/* <div><TableHeader title={"Users"} icon={users} property1='Free Users ' property2='Total Users' data1='500' data2='1,234' /></div> */}
@@ -232,4 +231,4 @@ const FreeUsers = () => {
   );
 };
 
-export default FreeUsers;
+export default BlockedUsers;

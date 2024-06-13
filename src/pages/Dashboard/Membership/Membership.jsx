@@ -11,11 +11,14 @@ export default function Membership() {
   const [selectedItem, setSelectedItem] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [isMessageAvailable, setIsMessageAvailable] = useState(false);
-  const [isMessageUnlimited, setIsMessageUnlimited] = useState(false);
   const [form] = Form.useForm(); // Create form instance
   const [createSubscription] = useCreateSubscriptionMutation();
   const [deleteSubscription] = useDeleteSubscriptionMutation();
   const [updateSubscription] = useUpdateSubscriptionMutation();
+  const [isChatAvailaleForCRUD, setIsChatAvailaleForCRUD] = useState(false);
+  const [isMessageUnlimited, setIsMessageUnlimited] = useState(false);
+  const [isMessageUnlimitedForCRUD, setIsMessageUnlimitedForCRUD] = useState(false);
+
 
   const [rank, setRank] = useState({
     Gold: 3,
@@ -24,8 +27,11 @@ export default function Membership() {
   });
 
   const handleEditModalCancel = () => {
+    console.log('-------------called--------------')
+    setSelectedItem({});
     setEditModalVisible(false);
   };
+  console.log('after-----------', selectedItem)
 
   const handleEditModalOpen = (value) => {
     setEditModalVisible(true);
@@ -44,6 +50,8 @@ export default function Membership() {
   const pagination = data?.data?.attributes.pagination;
 
   const handleModalCancel = () => {
+    console.log('-------------called--------------')
+    setSelectedItem({});
     setModalVisible(false);
   };
 
@@ -171,8 +179,6 @@ export default function Membership() {
           className="text-black font-bold border border-[#FF65C0] hover:bg-[#FF65C0] hover:text-white">
           Add Membership
         </Button>
-
-
       </div>
 
       <div className="grid grid-cols-3 gap-5 text-5xl text-center cursor-pointer">
